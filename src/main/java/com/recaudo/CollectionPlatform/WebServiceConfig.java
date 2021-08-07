@@ -19,14 +19,14 @@ public class WebServiceConfig {
         MessageDispatcherServlet servlet = new MessageDispatcherServlet();
         servlet.setApplicationContext(applicationContext);
         servlet.setTransformWsdlLocations(true);
-        return new ServletRegistrationBean<>(servlet, "CollectionPlataform/*");
+        return new ServletRegistrationBean<>(servlet, "/ws/*");
     }
 
     @Bean(name = "bill")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("billsPort");
-        wsdl11Definition.setLocationUri("/CollectionPlataform");
+        wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
         wsdl11Definition.setSchema(countriesSchema);
         return wsdl11Definition;
