@@ -1,0 +1,83 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="getBillByReferenceRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="auth" type="tns:Authentication"/>
+                <xs:element name="reference" type="tns:LimitedString"/>
+                <xs:element name="agreement" type="tns:LimitedAgree"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBillByReferenceResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:LimitedName"/>
+                <xs:element name="description" type="tns:LimitedValue"/>
+                <xs:element maxOccurs="unbounded" name="bills" type="tns:BillInfo"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Authentication">
+        <xs:sequence>
+            <xs:element name="login" type="tns:LimitedString"/>
+            <xs:element name="trankey" type="tns:LimitedString"/>
+            <xs:element name="seed" type="xs:string"/>
+            <xs:element maxOccurs="unbounded" name="additional" type="tns:Attributes"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="Attributes">
+        <xs:sequence>
+            <xs:element name="name" type="tns:LimitedName" />
+            <xs:element name="value" type="tns:LimitedValue" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="BillInfo">
+        <xs:sequence>
+            <xs:element name="reference"       type="tns:LimitedString" />
+            <xs:element name="description"     type="tns:LimitedValue" />
+            <xs:element name="debtorID"        type="tns:LimitedDebtor" />
+            <xs:element name="totalAmount"     type="xs:double" />
+            <xs:element name="debtorCode"      type="tns:LimitedDebtor" />
+            <xs:element name="debtorFirstName" type="tns:LimitedDebtorName" />
+            <xs:element name="debtorLastname"  type="tns:LimitedDebtorName" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="LimitedDebtor">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="20" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedDebtorName">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="60" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedString">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="40" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedName">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="30" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedValue">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedAgree">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="10" />
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
