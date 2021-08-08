@@ -9,8 +9,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Data
-public class BillReferenceRequest {
-    private Authentication aut;
-    private String reference;
-    private String agreement ;
+public class SettlerPaymentRequest {
+    private Authentication auth ;
 }

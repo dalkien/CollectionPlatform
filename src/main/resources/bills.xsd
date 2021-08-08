@@ -1,5 +1,7 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
-           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                 xmlns:tns="http://spring.io/guides/gs-producing-web-service"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service"
+           elementFormDefault="qualified">
 
     <xs:element name="getBillByReferenceRequest">
         <xs:complexType>
@@ -20,7 +22,16 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
+    
+    <xs:element name="settlerPaymentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="auth" type="tns:Authentication" />
+                <xs:element name="payment" type="tns:PaymentInfo" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
     <xs:complexType name="Authentication">
         <xs:sequence>
             <xs:element name="login" type="tns:LimitedString"/>
@@ -49,6 +60,33 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:complexType name="PaymentInfo">
+        <xs:sequence>
+            <xs:element name="reference"   type="tns:LimitedString"/>
+            <xs:element name="totalAmount" type="xs:double"/>
+            <xs:element name="date"        type="xs:string"/>
+            <xs:element name="receipt"     type="tns:LimitedString"/>
+            <xs:element name="franchise"   type="tns:LimitedMethod"/>
+            <xs:element name="channel"     type="tns:LimitedChannel"/>
+            <xs:element name="method"      type="tns:LimitedMethod"/>
+            <xs:element name="cashAmount"  type="xs:double"/>
+            <xs:element name="checkInfo"   type="tns:CheckInfo"/>
+            <xs:element name="payerID"     type="tns:LimitedDebtor"/>
+            <xs:element name="agreement"   type="tns:LimitedAgree"/>
+            <xs:element name="agentID"     type="tns:LimitedDebtor"/>
+            <xs:element name="location"    type="tns:LimitedDebtor"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="CheckInfo">
+        <xs:sequence>
+            <xs:element name="number"       type="tns:LimitedString" />
+            <xs:element name="bank"         type="tns:LimitedChannel" />
+            <xs:element name="amount"       type="xs:double" />
+            <xs:element name="exchange"     type="tns:LimitedOne" />
+        </xs:sequence>
+    </xs:complexType>
+    
     <xs:simpleType name="LimitedDebtor">
         <xs:restriction base="xs:string">
             <xs:maxLength value="20" />
@@ -79,5 +117,19 @@
             <xs:maxLength value="10" />
         </xs:restriction>
     </xs:simpleType>
-
+    <xs:simpleType name="LimitedMethod">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="5" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedChannel">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="3" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="LimitedOne">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1" />
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>

@@ -9,10 +9,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @Data
-public class BillReferenceResponse {
-
-    private String status;
-    private String description;
-    private BillInfo[] bills;
-
+public class CheckInfo {
+    private String  number       ;
+    private String  bank         ;
+    private double  amount       ;
+    private String  exchange     ;
 }

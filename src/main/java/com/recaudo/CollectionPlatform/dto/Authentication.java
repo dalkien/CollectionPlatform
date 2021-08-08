@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.management.Attribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @NoArgsConstructor
 @AllArgsConstructor
